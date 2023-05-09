@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import * as userRepository from '../data/auth.js';
+import { config } from '../config.js';
 
 const AUTH_ERROR = { message: '인증 에러!' };
 
@@ -12,7 +13,7 @@ export const isAuth = async (req, res, next) => {
     const token = authHeader.split(' ')[1];
     jwt.verify(
         token,
-        'E5!87O2bPUp5Hj9P$2S@KsPk1IVh#Lbj',
+        config.jwt.secretKey,
         async (error, decoded) => {
             if(error){
                 return res.status(401).json(AUTH_ERROR);
