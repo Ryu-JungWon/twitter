@@ -5,12 +5,13 @@ import tweetsRouter from "./router/tweets.js";
 import authRouter from "./router/auth.js";
 import { config } from './config.js';
 import { initSocket } from "./connection/socket.js";
+// import { db } from "./db/database.js";
 
 
 const app = express();
 app.use(express.json());
 app.use(cors());
-app.use(morgan("tiny")); // 사용자들이 들어오게되면 로그를 콘솔에 찍어줌
+app.use(morgan("tiny"));
 
 app.use("/tweets", tweetsRouter);
 app.use("/auth", authRouter);
@@ -24,5 +25,7 @@ app.use((error, req, res, next) => {
     res.sendStatus(500);
 });
 
-const server = app.listen(config.host.port); //웹으로도 사용
+// db.getConnection().then((connection) => console.log(connection));
+
+const server = app.listen(config.host.port);
 initSocket(server);
