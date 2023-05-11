@@ -24,10 +24,6 @@ export async function signup(req, res){
     const token = createJwtToken(userId); // data와 상관이 없는 함수이므로, 아래에 생성할 예정.
     res.status(201).json({token, username});
     }   
- // req.body로 data를 받아서 회원가입을 시키는 함수.
- // 해당 id가 존재한다면 '409'를 return.
- // userRepository에 데이터를 저장(비밀번호는 bcrypt를 사용하자)하여 회원가입을 진행.
- // JWT를 이용하여 사용자에게 json으로 전달할 예정.
 
 export async function login(req, res){
     const {username, password} = req.body
@@ -47,9 +43,6 @@ export async function login(req, res){
     const token = createJwtToken(user.id);
     res.status(200).json({token, username});
 }
-    // req.body로 data를 받아서 해당 id로 로그인 여부를 판단하는 함수.
-    // 해당 id가 존재하지 않으면, '401'을 return.
-    // bcrypt를 이용하여 비밀번호까지 모두 맞다면, 해당 정보를 JWT를 이용하여 사용자에게 json으로 전달.
 
 
 export async function me(req, res, next){
